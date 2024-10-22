@@ -19,11 +19,14 @@ async def start(message: Message, state: FSMContext):
 @router.message(F.text.in_(['1', '2']))
 async def schadule(message: Message):
     response = int(message.text)
-    subjects_for_first_subgroup, subjects_for_second_subgroup = json_handler.seralization_json()
+    subjects_for_first_subgroup, subjects_for_second_subgroup = await json_handler.seralization_json()
 
-    if response == 1:
-        for subject in subjects_for_first_subgroup:
-            await message.answer(text=subject)
-    elif response == 2:
-        for subject in subjects_for_second_subgroup:
-            await message.answer(text=subject)
+    if subjects_for_first_subgroup and subjects_for_second_subgroup:  # Если хотя бы один список не пустой
+        if response == 1 and subjects_for_first_subgroup:  # Проверяем только нужный список
+            for subject in subjects_for_first_subgroup:
+                await message.answer(text=subject)
+        elif response == 2 and subjects_for_second_subgroup:
+            for subject in subjects_for_second_subgroup:
+                await message.answer(text=subject)
+    else:
+        await message.answer(text="Сегодня вторник, можно кайфовать")
