@@ -1,5 +1,5 @@
 import requests
-from datetime import datetime, timedelta
+from datetime import datetime
 from core.tools import UniversalLogger
 
 logger = UniversalLogger('http_request')
@@ -21,7 +21,7 @@ class JsonHandler:
     def get_json(self):
         try:
             response = requests.get(self.url)
-            today = (datetime.now() + timedelta(days=1)).strftime('%d.%m.%Y')
+            today = datetime.now().strftime('%d.%m.%Y')
             if response.status_code == 200:
                 data = response.json()
                 days = data.get('schedule', [])
