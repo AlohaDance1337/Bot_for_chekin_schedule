@@ -53,8 +53,8 @@ class JsonHandler:
 
     def serialize_subjects(self, subjects):
         return [
-            f'Время, пара, преподаватель, кабинет и тип пары: {self.numbering_of_classes.get(subject.get("n"))}, '
-            f'{subject.get("lesson")}, {subject.get("teacher")}, {subject.get("location")}'
+            f'Время, пара, преподаватель, кабинет и тип пары: {self.numbering_of_classes.get(subject.get("n"))},'
+            f'{subject.get("lesson")}, {subject.get("teacher")}, {subject.get("location")}, {subject.get("type")}'
             for subject in subjects if subject.get("n") in self.numbering_of_classes
         ]
 
